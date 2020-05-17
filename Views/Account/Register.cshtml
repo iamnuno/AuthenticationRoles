@@ -1,0 +1,55 @@
+﻿@model YetAnotherDemo.Models.AccountViewModel
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    
+    <div class="d-flex justify-content-center">
+        <div class="jumbotron" style="margin-top: 3rem; width: 30vw;">
+
+            <h1 class="display-3">Register</h1>
+
+            <form asp-controller="Account" asp-action="Register" method="post" style="margin-top: 1rem;">
+                <div class="form-group">
+                    <label>Username</label>
+                    @Html.EditorFor(m => m.Account.Username, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.Account.Username, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    @Html.EditorFor(m => m.Account.Email, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.Account.Email, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <label>Phone number</label>
+                    @Html.EditorFor(m => m.Account.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.Account.Phone, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <label>Role</label>
+                    @Html.DropDownListFor(m => m.Account.Role, new SelectList(Model.Roles), "Choose a role...", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Account.Role, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    @Html.PasswordFor(m => m.Account.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Account.Password, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <label>Confirm password</label>
+                    @Html.PasswordFor(m => m.Account.ConfirmPassword, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Account.ConfirmPassword, "", new { @class = "text-danger" })
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+
+                <div style="margin-top: 2rem;">
+                    @Html.ActionLink("Already registered? Login here", "Login", "Account", null)
+                </div>
+
+                <h6 class="text-danger" style="margin-top: 2rem;">@ViewBag.Message</h6>
+            </form>
+        </div>
+    </div>
+

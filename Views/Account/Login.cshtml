@@ -1,0 +1,36 @@
+﻿@model YetAnotherDemo.Models.AccountViewModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+    <div class="d-flex justify-content-center">
+        <div class="jumbotron" style="margin-top: 3rem; width: 30vw;">
+
+            <h1 class="display-3">Login</h1>
+
+            <form asp-controller="Account" asp-action="Login" method="post" style="margin-top: 1rem;">
+                <div class="form-group">
+                    <label>Username</label>
+                    @Html.EditorFor(m => m.Account.Username, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(m => m.Account.Username, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    @Html.PasswordFor(m => m.Account.Password, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.Account.Password, "", new { @class = "text-danger" })
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+
+                <div style="margin-top: 2rem;">
+                    @Html.ActionLink("Dont't have an account yet? Register here", "Register", "Account", null)
+                </div>
+
+                <h6 class="text-danger" style="margin-top: 2rem;">@ViewBag.Message</h6>
+            </form>
+        </div>
+
+
+    </div>

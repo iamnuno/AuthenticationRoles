@@ -1,0 +1,20 @@
+﻿@model YetAnotherDemo.Models.AdminViewModel 
+
+<form asp-controller="Admin" asp-action="CreateRole" method="post" style="margin-top: 2rem;">
+    <div class="row">
+        <div class="col">
+            @Html.EditorFor(m => m.Role.RoleName, new { htmlAttributes = new { @class = "form-control", @placeholder = "Role name" } })
+            @Html.ValidationMessageFor(m => m.Role.RoleName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div style="margin-top: 1rem;">
+        <button type="submit" class="btn btn-primary mb-2">Create role</button>
+    </div>
+
+
+    <div>
+        <h6 class="text-danger" style="margin-top: 1rem;">@ViewBag.Message1</h6>
+    </div>
+
+</form>

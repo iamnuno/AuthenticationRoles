@@ -1,0 +1,20 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+    <div class="text-center" style="margin-top: 3rem;">
+        <h1 class="display-4">Welcome</h1>
+
+        <div style="margin-top: 2rem;">
+            @Html.ActionLink("Admin", "Index", "Admin", null)
+        </div>
+
+        <div style="margin-top: 2rem;">
+            @Html.ActionLink("Basketball", "Index", "Basketball", null)
+        </div>
+
+        <div style="margin-top: 2rem;">
+            @Html.ActionLink("Ice Hockey", "Index", "IceHockey", null)
+        </div>
+
+    </div>

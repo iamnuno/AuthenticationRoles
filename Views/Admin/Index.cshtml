@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewData["Title"] = "Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="display-3">Admin</h1>
+
+<div class="jumbotron" style="margin-top: 3rem; width: 50vw;">
+
+    <h1 class="display-4">Create new role</h1>
+
+    <partial name="_CreateRole"/>
+
+    <h1 class="display-4" style="margin-top: 3rem;">Add role to user</h1>
+
+    <partial name="_AddRoleToUser" />
+
+    <h1 class="display-4" style="margin-top: 3rem;">Lock/Unlock account</h1>
+
+    <partial name="_UpdateAccountLockStatus" />
+</div>
