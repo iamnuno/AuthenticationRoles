@@ -117,7 +117,7 @@ namespace YetAnotherDemo.Controllers
 
         [HttpPost]
         public async Task<IActionResult> ChangePassword(AccountViewModel model)
-        {   
+        {
             if (model.Account.Password.Equals(model.Account.ConfirmPassword))
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
@@ -136,11 +136,12 @@ namespace YetAnotherDemo.Controllers
                         ViewBag.Message = "There was a problem";
                     }
                 }
-            } else
+            }
+            else
             {
                 ViewBag.Message = "Passwords don't match";
             }
-           
+
 
             return View();
         }

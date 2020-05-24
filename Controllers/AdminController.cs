@@ -36,8 +36,8 @@ namespace YetAnotherDemo.Controllers
 
             if (!_context.Roles.Any(r => r.Name == model.Role.RoleName))
             {
-                var role = new AppRole 
-                { 
+                var role = new AppRole
+                {
                     Name = model.Role.RoleName
                 };
 
@@ -46,24 +46,25 @@ namespace YetAnotherDemo.Controllers
                 if (result.Succeeded)
                 {
                     ViewBag.Message1 = "Role created";
-                    
+
                 }
                 else
                 {
                     ViewBag.Message1 = "Role not created";
                 }
 
-            } else
+            }
+            else
             {
                 ViewBag.Message1 = "Role already exists";
             }
-           
+
             return View("Index");
         }
 
         public async Task<IActionResult> AddRoleToUser(AdminViewModel model)
         {
-            if (_context.Roles.Any(r => r.Name == model.Role.RoleName) 
+            if (_context.Roles.Any(r => r.Name == model.Role.RoleName)
                 && _context.Users.Any(u => u.UserName == model.AccountStatus.AccountName))
             {
 
@@ -90,12 +91,12 @@ namespace YetAnotherDemo.Controllers
             }
 
             return View("Index");
-            
+
         }
 
         public async Task<IActionResult> UpdateAccountLockStatus(AdminViewModel model)
         {
-            var user = _context.Users.Where(u => u.UserName == model.AccountStatus.AccountName).Single(); 
+            var user = _context.Users.Where(u => u.UserName == model.AccountStatus.AccountName).Single();
 
             if (user != null)
             {
@@ -106,7 +107,8 @@ namespace YetAnotherDemo.Controllers
                 {
                     await _userManager.SetLockoutEndDateAsync(user, new DateTime(2999, 01, 01));
                     ViewBag.Message3 = "User account locked";
-                } else
+                }
+                else
                 {
                     await _userManager.SetLockoutEndDateAsync(user, null);
                     ViewBag.Message3 = "User account unlocked";

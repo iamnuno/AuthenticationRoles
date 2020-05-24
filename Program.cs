@@ -19,7 +19,7 @@ namespace YetAnotherDemo
             var host = CreateWebHostBuilder(args).Build();
 
             using (var services = host.Services.CreateScope())
-            {   
+            {
 
                 // add initial roles and admin user to identity
                 var dbContext = services.ServiceProvider.GetRequiredService<AppIdentityDbContext>();
@@ -65,8 +65,12 @@ namespace YetAnotherDemo
                 CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
                 CloudBlobContainer basketballContainer = blobClient.GetContainerReference("basketball");
                 CloudBlobContainer iceHockeyContainer = blobClient.GetContainerReference("icehockey");
+                
                 basketballContainer.CreateIfNotExists();
                 iceHockeyContainer.CreateIfNotExists();
+
+                basketballContainer.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Container });
+                iceHockeyContainer.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Container });
             }
 
             host.Run();
