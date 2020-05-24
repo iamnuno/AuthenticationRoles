@@ -71,8 +71,6 @@ namespace YetAnotherDemo.Controllers
                     .Where(u => u.UserName == model.AccountStatus.AccountName)
                     .Single(); // assuming no duplicated names...
 
-                
-
                 var result = await _userManager.AddToRoleAsync(user, model.Role.RoleName);
 
                 if (result.Succeeded)
@@ -82,7 +80,7 @@ namespace YetAnotherDemo.Controllers
                 }
                 else
                 {
-                    ViewBag.Message2 = "Role not added user";
+                    ViewBag.Message2 = "Role not added to user";
                 }
 
             }

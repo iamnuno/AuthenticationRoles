@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using YetAnotherDemo.Models;
 using YetAnotherDemo.Services;
 
 namespace YetAnotherDemo.Controllers
@@ -17,15 +18,30 @@ namespace YetAnotherDemo.Controllers
 
         public IActionResult Index()
         {
-            return View(new BlobViewModel
-            {
-                Containers = _blobStorageService.ListContainers()
-            });
+            return View();
         }
+
+
+        public IActionResult UploadFile(FileUploadModel model)
+        {
+            var file = model.File;
+            _blobStorageService.UploadFile("basketball", file);
+
+            return View("Index");
+        }
+
+
     }
+
+
+
+
+    /*
 
     public class BlobViewModel
     {
         public List<string> Containers { get; set; }
     }
+
+    */
 }

@@ -1,4 +1,4 @@
-﻿@model YetAnotherDemo.Controllers.BlobViewModel
+﻿@model YetAnotherDemo.Models.FileUploadModel
 
 @{
     ViewData["Title"] = "Basketball";
@@ -10,10 +10,13 @@
 <div class="jumbotron">
     <h1 class="display-3" style="margin-top: 1rem;">Basketball</h1>
 
-    <form asp-controller="Basketball" asp-action="AddFile" method="post">
+    <form enctype="multipart/form-data" asp-controller="Basketball" asp-action="UploadFile" method="post">
 
-
-
+        <div class="custom-file">
+            <label asp-for="File" class="custom-file-label">Choose file</label>
+            <input type="file" class="custom-file-input" asp-for="File">
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Upload</button>
     </form>
 
 </div>
