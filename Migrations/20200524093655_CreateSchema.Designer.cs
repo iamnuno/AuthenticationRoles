@@ -10,7 +10,7 @@ using YetAnotherDemo.Data;
 namespace YetAnotherDemo.Migrations
 {
     [DbContext(typeof(AppIdentityDbContext))]
-    [Migration("20200524083950_CreateSchema")]
+    [Migration("20200524093655_CreateSchema")]
     partial class CreateSchema
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -52,11 +52,11 @@ namespace YetAnotherDemo
                 {
                     var adminUser = new AppUser
                     {
-                        UserName = "admin@test.com",
+                        UserName = "Admin",
                         Email = "admin@test.com",
 
                     };
-                    var result = userMgr.CreateAsync(adminUser, "password").GetAwaiter().GetResult();
+                    var result = userMgr.CreateAsync(adminUser, "Password1").GetAwaiter().GetResult();
                     userMgr.AddToRoleAsync(adminUser, adminRole.Name).GetAwaiter().GetResult();
                 }
 
