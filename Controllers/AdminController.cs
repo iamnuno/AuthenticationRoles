@@ -13,14 +13,14 @@ namespace YetAnotherDemo.Controllers
     [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<AppUser> _userManager;
         private readonly AppIdentityDbContext _context;
-        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly RoleManager<AppRole> _roleManager;
 
         public AdminController(
             AppIdentityDbContext context,
-            UserManager<IdentityUser> userManager,
-            RoleManager<IdentityRole> roleManager)
+            UserManager<AppUser> userManager,
+            RoleManager<AppRole> roleManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
@@ -36,7 +36,11 @@ namespace YetAnotherDemo.Controllers
 
             if (!_context.Roles.Any(r => r.Name == model.Role.RoleName))
             {
-                var role = new IdentityRole(model.Role.RoleName);
+                var role = new AppRole 
+                { 
+                    Name = model.Role.RoleName
+                };
+
                 var result = await _roleManager.CreateAsync(role);
 
                 if (result.Succeeded)

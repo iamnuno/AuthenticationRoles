@@ -1,8 +1,20 @@
-﻿
+﻿@model YetAnotherDemo.Controllers.BlobViewModel
+
 @{
     ViewData["Title"] = "Basketball";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="display-3">Basketball</h1>
+
+
+<div class="jumbotron">
+    <h1 class="display-3" style="margin-top: 1rem;">Basketball</h1>
+
+    <form asp-controller="Basketball" asp-action="AddFile" method="post">
+
+
+
+    </form>
+
+</div>
 

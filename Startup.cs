@@ -1,3 +1,4 @@
+using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -6,6 +7,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using YetAnotherDemo.Data;
+using YetAnotherDemo.Models;
+using YetAnotherDemo.Services;
 
 namespace YetAnotherDemo
 {
@@ -24,7 +27,7 @@ namespace YetAnotherDemo
             services.AddDbContext<AppIdentityDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<AppUser, AppRole>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
@@ -32,8 +35,7 @@ namespace YetAnotherDemo
                 options.Password.RequiredLength = 6;
             }).AddEntityFrameworkStores<AppIdentityDbContext>();
 
-
-
+          
             services.AddControllersWithViews();
         }
 

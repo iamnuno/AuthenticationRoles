@@ -26,6 +26,8 @@ namespace YetAnotherDemo.Models
         [Required]
         public string Phone { get; set; }
         [Required]
+        public string Address { get; set; }
+        [Required]
         public string Role { get; set; }
         [Required]
         public string Password { get; set; }

@@ -10,14 +10,14 @@ namespace YetAnotherDemo.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
+        private readonly UserManager<AppUser> _userManager;
         private readonly AppIdentityDbContext _context;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly SignInManager<AppUser> _signInManager;
 
         public AccountController(
             AppIdentityDbContext context,
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager)
+            UserManager<AppUser> userManager,
+            SignInManager<AppUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -44,11 +44,12 @@ namespace YetAnotherDemo.Controllers
                     {
                         if (!_context.Users.Any(u => u.Email == model.Account.Email))
                         {
-                            var user = new IdentityUser
+                            var user = new AppUser
                             {
                                 UserName = model.Account.Username,
                                 Email = model.Account.Email,
-                                PhoneNumber = model.Account.Phone
+                                PhoneNumber = model.Account.Phone,
+                                Address = model.Account.Address
                             };
 
                             await _userManager.CreateAsync(user, model.Account.Password);
