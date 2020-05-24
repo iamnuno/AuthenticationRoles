@@ -28,7 +28,9 @@ namespace YetAnotherDemo
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<AppUser, AppRole>(options =>
-            {
+            {   
+                // password settings kept simple here for the admin account seeded when running project for the first time
+                // in user registration there's front end validation imposing stricter rules
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;

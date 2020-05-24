@@ -30,6 +30,8 @@ namespace YetAnotherDemo.Models
         [Required]
         public string Role { get; set; }
         [Required]
+        [MinLength(8, ErrorMessage = "Password must be at least 8 characters")]
+        [RegularExpression("[A-Z][a-zA-Z0-9]+", ErrorMessage = "First letter must be capital and only alpha-numeric characters are allowed")]
         public string Password { get; set; }
         [Required]
         public string ConfirmPassword { get; set; }
