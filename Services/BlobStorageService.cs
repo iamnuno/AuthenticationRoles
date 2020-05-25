@@ -32,7 +32,6 @@ namespace YetAnotherDemo.Services
 
             using Stream stream = model.File.File.OpenReadStream();
             blockBlob.UploadFromStream(stream);
-
             
             // update table storage
             Microsoft.Azure.Cosmos.Table.CloudStorageAccount cloudStorageAccount = Microsoft.Azure.Cosmos.Table.CloudStorageAccount.DevelopmentStorageAccount;
@@ -66,6 +65,7 @@ namespace YetAnotherDemo.Services
             var files = table.ExecuteQuery(new TableQuery<FileTableEntity>()).ToArray();
             var filesFilteredByPartition = new List<FileTableEntity>();
 
+            // only files from the correct "role" (container) can be displayed
             foreach (FileTableEntity f in files)
             {
                 if (f.PartitionKey == containerName)
@@ -74,6 +74,7 @@ namespace YetAnotherDemo.Services
                 }
             }
 
+            // if no search term return all results
             if (searchTerm == null)
             {
                 return filesFilteredByPartition;
@@ -93,7 +94,6 @@ namespace YetAnotherDemo.Services
                 }
             }
 
-
             return filesFilteredAfterSearchTerm;
         }
 
@@ -106,6 +106,7 @@ namespace YetAnotherDemo.Services
             var files = table.ExecuteQuery(new TableQuery<FileTableEntity>()).ToArray();
             var filesFilteredByPartition = new List<FileTableEntity>();
 
+            // make sure only files from the correct "role" are filetered
             foreach (FileTableEntity f in files)
             {
                 if (f.PartitionKey == container)
@@ -116,63 +117,27 @@ namespace YetAnotherDemo.Services
 
             foreach (FileTableEntity f in filesFilteredByPartition)
             {
-                if (f.RowKey == id && (f.Owner == user || user == "Admin"))
-                {
+                if (f.RowKey == id && (f.Owner == user || user == "Admin")) // only file owner or admin can delete the file
+                {   
+
+                    // delete from storage table
                     TableOperation delete = TableOperation.Delete(f);
                     table.Execute(delete);
 
-                    _container = _blobClient.GetContainerReference("basketball");
-
+                    _container = _blobClient.GetContainerReference(container);
                     var blobs = _container.ListBlobs(null, false);
 
                     foreach (var item in blobs)
                     {
                         if (item.Uri.ToString() == f.Url)
-                        {
+                        {   
+                            // delete from blob container
                             CloudBlockBlob blob = (CloudBlockBlob) item;
                             blob.DeleteIfExists();
                         }
                     }
-
-
-
-                }
-            }
-
-
-
-        }
-
-        /*
-        public async Task FileDownload(string containerName, string id)
-        {
-
-            Microsoft.Azure.Cosmos.Table.CloudStorageAccount cloudStorageAccount = Microsoft.Azure.Cosmos.Table.CloudStorageAccount.DevelopmentStorageAccount;
-            CloudTableClient tableClient = cloudStorageAccount.CreateCloudTableClient(new TableClientConfiguration());
-            CloudTable table = tableClient.GetTableReference("BlobDetails");
-
-            var files = table.ExecuteQuery(new TableQuery<FileTableEntity>()).ToArray();
-            var filesFilteredByPartition = new List<FileTableEntity>();
-
-            foreach (FileTableEntity f in files)
-            {
-                if (f.PartitionKey == containerName)
-                {
-                    filesFilteredByPartition.Add(f);
-                }
-            }
-
-            foreach(FileTableEntity f in filesFilteredByPartition)
-            {
-
-                if (f.RowKey == id)
-                {
-                    WebClient wc = new WebClient();
-                    wc.DownloadFileAsync(new Uri(f.Url), "myFile");
-               
                 }
             }
         }
-        */
     }
 }

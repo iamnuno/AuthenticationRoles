@@ -1,8 +1,132 @@
-﻿
+﻿@model YetAnotherDemo.Models.BlobStorageModels
+
 @{
     ViewData["Title"] = "Ice Hockey";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 class="display-3">Ice Hockey</h1>
+<div class="jumbotron">
+    <h1 class="display-3" style="margin-top: 1rem;">Ice Hockey</h1>
+</div>
+
+<div class="jumbotron">
+    <h1 class="display-4" style="margin-top: 1rem;">List files</h1>
+
+    <form asp-controller="IceHockey" asp-action="ListFiles" method="post">
+        <div class="form-group" style="margin-top: 1rem;">
+            <label>Search</label>
+            @Html.EditorFor(m => m.SearchTerm.Search, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.SearchTerm.Search, "", new { @class = "text-danger" })
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Search</button>
+    </form>
+
+    @if (Model != null)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Owner</th>
+                    <th scope="col">URL</th>
+                    <th scope="col">Author</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Media type</th>
+                    <th scope="col">Data format</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var file in Model.ListFileTableEntity.FileTableEntitiesList)
+                {
+                    <tr>
+                        <td>@file.RowKey</td>
+                        <td>@file.Owner</td>
+                        <td><a href="@file.Url">@file.Url</a></td>
+                        <td>@file.Author</td>
+                        <td>@file.Location</td>
+                        <td>@file.Date</td>
+                        <td>@file.Type</td>
+                        <td>@file.DataFormat</td>
+                    </tr>
+
+                }
+
+            </tbody>
+
+        </table>
+    }
+
+
+</div>
+
+<div class="jumbotron">
+    <h1 class="display-4" style="margin-top: 1rem;">Delete file</h1>
+
+    <form asp-controller="IceHockey" asp-action="DeleteFile" method="post">
+        <div class="form-group" style="margin-top: 1rem;">
+            <label>Search</label>
+            @Html.EditorFor(m => m.FileDelete.ID, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.FileDelete.ID, "", new { @class = "text-danger" })
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Delete</button>
+    </form>
+</div>
+
+<div class="jumbotron">
+    <h1 class="display-4" style="margin-top: 1rem;">File Upload</h1>
+
+    <form enctype="multipart/form-data" asp-controller="IceHockey" asp-action="UploadFile" method="post">
+
+        <div class="form-group" style="margin-top: 1rem;">
+            <label>Media type (photo, video, etc)</label>
+            @Html.EditorFor(m => m.File.Type, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.File.Type, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <label>Data format (jpg, mp3, etc)</label>
+            @Html.EditorFor(m => m.File.DataFormat, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.File.DataFormat, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <label>Date</label>
+            @Html.EditorFor(m => m.File.Date, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.File.Date, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <label>Location</label>
+            @Html.EditorFor(m => m.File.Location, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.File.Location, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            <label>Author</label>
+            @Html.EditorFor(m => m.File.Author, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(m => m.File.Author, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="custom-file" style="margin-top: 1rem;">
+            <label asp-for="File.File" class="custom-file-label">Choose file</label>
+            <input type="file" class="custom-file-input" asp-for="File.File">
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="margin-top: 1rem;">Upload</button>
+
+        @section Scripts {
+            <script>
+                    $('input[type="file"]').change(function (e) {
+                        console.log("change");
+                        var fileName = e.target.files[0].name;
+                        $('.custom-file-label').html(fileName);
+                    });
+            </script>
+        }
+
+    </form>
+
+</div>
 

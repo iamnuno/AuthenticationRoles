@@ -47,6 +47,7 @@ namespace YetAnotherDemo.Controllers
             return View("Index", newModel);
         }
 
+        [HttpPost]
         public async Task<IActionResult> DeleteFile(BlobStorageModels model)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);

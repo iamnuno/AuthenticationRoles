@@ -65,10 +65,8 @@ namespace YetAnotherDemo
                 CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
                 CloudBlobContainer basketballContainer = blobClient.GetContainerReference("basketball");
                 CloudBlobContainer iceHockeyContainer = blobClient.GetContainerReference("icehockey");
-                
                 basketballContainer.CreateIfNotExists();
                 iceHockeyContainer.CreateIfNotExists();
-
                 basketballContainer.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Container });
                 iceHockeyContainer.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Container });
             }
