@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using YetAnotherDemo.Data;
 using YetAnotherDemo.Models;
+using YetAnotherDemo.Services;
 
 namespace YetAnotherDemo.Controllers
 {
@@ -46,6 +47,10 @@ namespace YetAnotherDemo.Controllers
                 if (result.Succeeded)
                 {
                     ViewBag.Message1 = "Role created";
+
+                    // create blob container as well
+                    BlobStorageService blobStorageService = new BlobStorageService();
+                    blobStorageService.CreateContainer(model.Role.RoleName);
 
                 }
                 else

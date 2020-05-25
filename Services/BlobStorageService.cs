@@ -139,5 +139,12 @@ namespace YetAnotherDemo.Services
                 }
             }
         }
+
+        public void CreateContainer(string name)
+        {
+            _container = _blobClient.GetContainerReference(name);
+            _container.CreateIfNotExists();
+            _container.SetPermissions(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Container });
+        }
     }
 }
